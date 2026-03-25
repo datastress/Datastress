@@ -1,5 +1,5 @@
 // ============================
-// DataStress v2 - fix bugs
+// DataStress v2 - COMPLETO
 // ============================
 
 // STATUS
@@ -59,10 +59,8 @@ function updateUI(bytes, speed) {
     unit = "KB";
   }
 
-  // Mbps real
   const mbps = ((speed * 8) / 1e6).toFixed(2);
-
-  counter.innerText = `${value} ${unit} | ${mbps} Mbps`;
+  document.getElementById("counter").innerText = `${value} ${unit} | ${mbps} Mbps`;
 }
 
 // ============================
@@ -79,7 +77,7 @@ function animateSlots() {
 // CONTROLES START / STOP
 // ============================
 function start() {
-  if (running) return; // evita start duplo
+  if (running) return;
 
   running = true;
   sessionBytes = 0;
@@ -90,7 +88,7 @@ function start() {
 
 function stop() {
   running = false;
-  clearTimeout(loopTimeout); // garante que não continua rodando
+  clearTimeout(loopTimeout);
 }
 
 // ============================
@@ -103,8 +101,8 @@ async function register() {
     method: "POST",
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
-      email: email.value,
-      password: password.value
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
     })
   });
   alert("Registered");
@@ -115,8 +113,8 @@ async function login() {
     method: "POST",
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
-      email: email.value,
-      password: password.value
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
     })
   });
 
