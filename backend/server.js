@@ -25,27 +25,19 @@ app.post("/api/register", (req, res) => {
 app.post("/api/login", (req, res) => {
   const { email, password } = req.body;
   const user = users.find(u => u.email === email && u.password === password);
-
   if (!user) return res.status(401).send("Invalid credentials");
 
   const token = uuidv4();
   sessions.set(token, user);
-
   res.json({ token });
 });
 
 // ===== DATA STREAM
 app.get("/api/chunk", (req, res) => {
-  // =============================
-  // DESABILITAR CACHE (browser + proxy)
-  // =============================
   res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.set("Pragma", "no-cache");
   res.set("Expires", "0");
 
-  // =============================
-  // GERAR CHUNK 1MB
-  // =============================
   const buffer = Buffer.alloc(1024 * 1024, Math.floor(Math.random()*256));
   res.set("Content-Type", "application/octet-stream");
   res.send(buffer);
@@ -53,9 +45,8 @@ app.get("/api/chunk", (req, res) => {
 
 // ===== SERVE FRONTEND
 app.use(express.static(path.join(__dirname, "../frontend")));
-
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-app.listen(3000, () => console.log("Server running"));
+app.listen(3000, () => console.log("Server running on port 3000"));
