@@ -1,35 +1,10 @@
 let running = false;
-let total = 0;
+
+let totalBytes = 0;        // total global
+let sessionBytes = 0;      // sessão atual
+
 let startTime = 0;
-let token = null;
-
-async function register() {
-  await fetch("/api/register", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value
-    })
-  });
-  alert("Registered");
-}
-
-async function login() {
-  const res = await fetch("/api/login", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value
-    })
-  });
-
-  const data = await res.json();
-  token = data.token;
-
-  alert("Logged in");
-}
+let sessionStart = 0;
 
 async function loop() {
   if (!running) return;
@@ -37,26 +12,39 @@ async function loop() {
   const res = await fetch("/api/chunk");
   const blob = await res.blob();
 
-  total += blob.size;
+  totalBytes += blob.size;
+  sessionBytes += blob.size;
 
-  const seconds = (Date.now() - startTime) / 1000;
-  const speed = total / seconds;
+  const elapsed = (Date.now() - sessionStart) / 1000;
+  const speed = sessionBytes / elapsed;
 
-  updateUI(total, speed);
-  animate();
+  updateUI(totalBytes, speed);
+  animateSlots();
 
-  setTimeout(loop, 100);
+  setTimeout(loop, 50);
 }
 
 function updateUI(bytes, speed) {
-  const gb = (bytes / 1e9).toFixed(2);
+  let value, unit;
+
+  if (bytes > 1e9) {
+    value = (bytes / 1e9).toFixed(2);
+    unit = "GB";
+  } else if (bytes > 1e6) {
+    value = (bytes / 1e6).toFixed(2);
+    unit = "MB";
+  } else {
+    value = (bytes / 1e3).toFixed(2);
+    unit = "KB";
+  }
+
   const mbps = ((speed * 8) / 1e6).toFixed(2);
 
-  counter.innerText = `${gb} GB | ${mbps} Mbps`;
+  counter.innerText = `${value} ${unit} | ${mbps} Mbps`;
 }
 
-function animate() {
-  const icons = ["🍒","🍋","💎","7️⃣","🍀"];
+function animateSlots() {
+  const icons = ["🍒","🍋","💎","7️⃣","🍀","🔥"];
   document.querySelectorAll(".slot").forEach(el => {
     el.innerText = icons[Math.floor(Math.random()*icons.length)];
   });
@@ -64,7 +52,10 @@ function animate() {
 
 function start() {
   running = true;
-  startTime = Date.now();
+
+  sessionBytes = 0;
+  sessionStart = Date.now();
+
   loop();
 }
 
