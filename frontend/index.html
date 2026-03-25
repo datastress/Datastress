@@ -4,48 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DataStress</title>
-  <link rel="stylesheet" href="style.css">
+  <!-- CSS with cache-busting -->
+  <link rel="stylesheet" href="style.css?v=<?= Date.now() ?>">
 </head>
 <body>
-  <h1>DataStress</h1>
-
-  <!-- Data counter -->
-  <div id="counter">0 MB | 0 Mbps</div>
-
-  <!-- Casino-style slots -->
-  <div id="slots">
-    <div class="row">
-      <div class="slot"></div>
-      <div class="slot"></div>
-      <div class="slot"></div>
+  <div id="app">
+    <h1>DataStress</h1>
+    <div id="counter">0 MB | 0 Mbps</div>
+    
+    <div class="slots">
+      <span class="slot">🍒</span>
+      <span class="slot">🍋</span>
+      <span class="slot">💎</span>
     </div>
-    <div class="row">
-      <div class="slot"></div>
-      <div class="slot"></div>
-      <div class="slot"></div>
-    </div>
-  </div>
 
-  <!-- Controls -->
-  <div id="controls">
-    <button onclick="start()">START</button>
-    <button onclick="stop()">PAUSE</button>
-  </div>
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
 
-  <!-- Login/Register -->
-  <div id="auth">
+    <h2>Login / Register</h2>
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
     <button onclick="register()">Register</button>
     <button onclick="login()">Login</button>
+
+    <h2>Upgrade</h2>
+    <button onclick="upgradeStripe()">Stripe</button>
+    <button onclick="upgradePayPal()">PayPal</button>
+    <button onclick="upgradeMBWay()">MBWay</button>
   </div>
 
-  <!-- Upgrade Premium popup -->
-  <div id="upgradePopup" style="display:none;">
-    <p>Free limit reached! Upgrade to Premium.</p>
-    <button onclick="goPremium()">Upgrade</button>
-  </div>
-
-  <script src="app.js"></script>
+  <!-- JS with cache-busting -->
+  <script src="app.js?v=<?= Date.now() ?>"></script>
 </body>
 </html>
