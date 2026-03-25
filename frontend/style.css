@@ -1,21 +1,45 @@
 body {
-  background: black;
-  color: lime;
+  background: radial-gradient(circle, #000 0%, #111 100%);
+  color: #00ffcc;
   font-family: monospace;
   text-align: center;
 }
 
 #counter {
-  font-size: 24px;
+  font-size: 28px;
   margin: 20px;
 }
 
 #slots {
-  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.slot {
+  width: 60px;
+  height: 60px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00ffcc;
 }
 
 button {
-  padding: 10px;
+  padding: 12px;
   margin: 5px;
-  font-size: 16px;
+  font-size: 18px;
+  background: #00ffcc;
+  border: none;
+  border-radius: 8px;
+  color: black;
 }
