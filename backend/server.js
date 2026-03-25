@@ -36,7 +36,17 @@ app.post("/api/login", (req, res) => {
 
 // ===== DATA STREAM
 app.get("/api/chunk", (req, res) => {
-  const buffer = Buffer.alloc(1024 * 1024, 0);
+  // =============================
+  // DESABILITAR CACHE (browser + proxy)
+  // =============================
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
+
+  // =============================
+  // GERAR CHUNK 1MB
+  // =============================
+  const buffer = Buffer.alloc(1024 * 1024, Math.floor(Math.random()*256));
   res.set("Content-Type", "application/octet-stream");
   res.send(buffer);
 });
