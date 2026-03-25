@@ -8,9 +8,11 @@
 </head>
 <body>
   <h1>DataStress</h1>
+
+  <!-- Data counter -->
   <div id="counter">0 MB | 0 Mbps</div>
 
-  <!-- SLOTS -->
+  <!-- Casino-style slots -->
   <div id="slots">
     <div class="row">
       <div class="slot"></div>
@@ -24,18 +26,24 @@
     </div>
   </div>
 
-  <!-- CONTROLES -->
+  <!-- Controls -->
   <div id="controls">
     <button onclick="start()">START</button>
     <button onclick="stop()">PAUSE</button>
   </div>
 
-  <!-- LOGIN/REGISTER SIMPLES -->
+  <!-- Login/Register -->
   <div id="auth">
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
     <button onclick="register()">Register</button>
     <button onclick="login()">Login</button>
+  </div>
+
+  <!-- Upgrade Premium popup -->
+  <div id="upgradePopup" style="display:none;">
+    <p>Free limit reached! Upgrade to Premium.</p>
+    <button onclick="goPremium()">Upgrade</button>
   </div>
 
   <script src="app.js"></script>
